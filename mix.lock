@@ -1,0 +1,6 @@
+%{
+  "ex_utils": {:hex, :ex_utils, "0.1.7", "2c133e0bcdc49a858cf8dacf893308ebc05bc5fba501dc3d2935e65365ec0bf3", [:mix], [], "hexpm", "66d4fe75285948f2d1e69c2a5ddd651c398c813574f8d36a9eef11dc20356ef6"},
+  "ffmpex": {:git, "https://github.com/talklittle/ffmpex.git", "d131679b03a5143fafb0647b19ec3e110bd2cf4a", [tag: "v0.7.1"]},
+  "hls_playlist_generator": {:git, "https://github.com/Loriowar/hls_playlist_generator.git", "d6f6312b33a57294afbac33057fc6349dc0f332b", [branch: "master"]},
+  "jason": {:hex, :jason, "1.1.2", "b03dedea67a99223a2eaf9f1264ce37154564de899fd3d8b9a21b1a6fd64afe7", [:mix], [{:decimal, "~> 1.0", [hex: :decimal, repo: "hexpm", optional: true]}], "hexpm", "fdf843bca858203ae1de16da2ee206f53416bbda5dc8c9e78f43243de4bc3afe"},
+}

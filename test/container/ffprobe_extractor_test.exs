@@ -1,0 +1,436 @@
+defmodule HMSSTest.MediaContainer.FFprobeExtractor do
+  use ExUnit.Case
+  doctest HMSS.MediaContainer.FFprobeExtractor
+
+  test "should return proper slice of data" do
+    input =
+      [
+        %{
+          "avg_frame_rate" => "24/1",
+          "bits_per_raw_sample" => "8",
+          "chroma_location" => "left",
+          "codec_long_name" => "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+          "codec_name" => "h264",
+          "codec_tag" => "0x0000",
+          "codec_tag_string" => "[0][0][0][0]",
+          "codec_time_base" => "1/48",
+          "codec_type" => "video",
+          "coded_height" => 1088,
+          "coded_width" => 1920,
+          "display_aspect_ratio" => "16:9",
+          "disposition" => %{
+            "attached_pic" => 0,
+            "clean_effects" => 0,
+            "comment" => 0,
+            "default" => 1,
+            "dub" => 0,
+            "forced" => 0,
+            "hearing_impaired" => 0,
+            "karaoke" => 0,
+            "lyrics" => 0,
+            "original" => 0,
+            "timed_thumbnails" => 0,
+            "visual_impaired" => 0
+          },
+          "field_order" => "progressive",
+          "has_b_frames" => 2,
+          "height" => 1080,
+          "index" => 0,
+          "is_avc" => "true",
+          "level" => 40,
+          "nal_length_size" => "4",
+          "pix_fmt" => "yuv420p",
+          "profile" => "High",
+          "r_frame_rate" => "24/1",
+          "refs" => 1,
+          "sample_aspect_ratio" => "1:1",
+          "start_pts" => 0,
+          "start_time" => "0.000000",
+          "tags" => %{
+            "BPS-eng" => "6796617",
+            "DURATION-eng" => "03:29:26.584000000",
+            "NUMBER_OF_BYTES-eng" => "10676282577",
+            "NUMBER_OF_FRAMES-eng" => "301598",
+            "_STATISTICS_TAGS-eng" => "BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES",
+            "_STATISTICS_WRITING_APP-eng" => "mkvmerge v40.0.0 ('Old Town Road + Pony') 64-bit",
+            "_STATISTICS_WRITING_DATE_UTC-eng" => "2019-11-27 08:22:44"
+          },
+          "time_base" => "1/1000",
+          "width" => 1920
+        },
+        %{
+          "avg_frame_rate" => "0/0",
+          "bits_per_sample" => 0,
+          "channels" => 6,
+          "codec_long_name" => "ATSC A/52B (AC-3, E-AC-3)",
+          "codec_name" => "eac3",
+          "codec_tag" => "0x0000",
+          "codec_tag_string" => "[0][0][0][0]",
+          "codec_time_base" => "1/48000",
+          "codec_type" => "audio",
+          "disposition" => %{
+            "attached_pic" => 0,
+            "clean_effects" => 0,
+            "comment" => 0,
+            "default" => 1,
+            "dub" => 0,
+            "forced" => 0,
+            "hearing_impaired" => 0,
+            "karaoke" => 0,
+            "lyrics" => 0,
+            "original" => 0,
+            "timed_thumbnails" => 0,
+            "visual_impaired" => 0
+          },
+          "dmix_mode" => "-1",
+          "index" => 1,
+          "loro_cmixlev" => "-1.000000",
+          "loro_surmixlev" => "-1.000000",
+          "ltrt_cmixlev" => "-1.000000",
+          "ltrt_surmixlev" => "-1.000000",
+          "r_frame_rate" => "0/0",
+          "sample_fmt" => "fltp",
+          "sample_rate" => "48000",
+          "start_pts" => 0,
+          "start_time" => "0.000000",
+          "tags" => %{
+            "BPS-eng" => "640000",
+            "DURATION-eng" => "03:29:26.816000000",
+            "NUMBER_OF_BYTES-eng" => "1005345280",
+            "NUMBER_OF_FRAMES-eng" => "392713",
+            "_STATISTICS_TAGS-eng" => "BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES",
+            "_STATISTICS_WRITING_APP-eng" => "mkvmerge v40.0.0 ('Old Town Road + Pony') 64-bit",
+            "_STATISTICS_WRITING_DATE_UTC-eng" => "2019-11-27 08:22:44",
+            "language" => "rus",
+            "title" => "Dub"
+          },
+          "time_base" => "1/1000"
+        },
+        %{
+          "avg_frame_rate" => "0/0",
+          "bits_per_sample" => 0,
+          "channels" => 6,
+          "codec_long_name" => "ATSC A/52B (AC-3, E-AC-3)",
+          "codec_name" => "eac3",
+          "codec_tag" => "0x0000",
+          "codec_tag_string" => "[0][0][0][0]",
+          "codec_time_base" => "1/48000",
+          "codec_type" => "audio",
+          "disposition" => %{
+            "attached_pic" => 0,
+            "clean_effects" => 0,
+            "comment" => 0,
+            "default" => 0,
+            "dub" => 0,
+            "forced" => 0,
+            "hearing_impaired" => 0,
+            "karaoke" => 0,
+            "lyrics" => 0,
+            "original" => 0,
+            "timed_thumbnails" => 0,
+            "visual_impaired" => 0
+          },
+          "dmix_mode" => "-1",
+          "index" => 2,
+          "loro_cmixlev" => "-1.000000",
+          "loro_surmixlev" => "-1.000000",
+          "ltrt_cmixlev" => "-1.000000",
+          "ltrt_surmixlev" => "-1.000000",
+          "r_frame_rate" => "0/0",
+          "sample_fmt" => "fltp",
+          "sample_rate" => "48000",
+          "start_pts" => 0,
+          "start_time" => "0.000000",
+          "tags" => %{
+            "BPS-eng" => "768000",
+            "DURATION-eng" => "03:29:26.560000000",
+            "NUMBER_OF_BYTES-eng" => "1206389760",
+            "NUMBER_OF_FRAMES-eng" => "392705",
+            "_STATISTICS_TAGS-eng" => "BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES",
+            "_STATISTICS_WRITING_APP-eng" => "mkvmerge v40.0.0 ('Old Town Road + Pony') 64-bit",
+            "_STATISTICS_WRITING_DATE_UTC-eng" => "2019-11-27 08:22:44",
+            "language" => "eng",
+            "title" => "Original"
+          },
+          "time_base" => "1/1000"
+        },
+        %{
+          "avg_frame_rate" => "0/0",
+          "codec_long_name" => "SubRip subtitle",
+          "codec_name" => "subrip",
+          "codec_tag" => "0x0000",
+          "codec_tag_string" => "[0][0][0][0]",
+          "codec_time_base" => "0/1",
+          "codec_type" => "subtitle",
+          "disposition" => %{
+            "attached_pic" => 0,
+            "clean_effects" => 0,
+            "comment" => 0,
+            "default" => 1,
+            "dub" => 0,
+            "forced" => 1,
+            "hearing_impaired" => 0,
+            "karaoke" => 0,
+            "lyrics" => 0,
+            "original" => 0,
+            "timed_thumbnails" => 0,
+            "visual_impaired" => 0
+          },
+          "duration" => "12566.816000",
+          "duration_ts" => 12566816,
+          "index" => 3,
+          "r_frame_rate" => "0/0",
+          "start_pts" => 0,
+          "start_time" => "0.000000",
+          "tags" => %{
+            "BPS-eng" => "10",
+            "DURATION-eng" => "03:28:03.240000000",
+            "NUMBER_OF_BYTES-eng" => "15721",
+            "NUMBER_OF_FRAMES-eng" => "215",
+            "_STATISTICS_TAGS-eng" => "BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES",
+            "_STATISTICS_WRITING_APP-eng" => "mkvmerge v40.0.0 ('Old Town Road + Pony') 64-bit",
+            "_STATISTICS_WRITING_DATE_UTC-eng" => "2019-11-27 08:22:44",
+            "language" => "rus",
+            "title" => "Forced"
+          },
+          "time_base" => "1/1000"
+        },
+        %{
+          "avg_frame_rate" => "0/0",
+          "codec_long_name" => "SubRip subtitle",
+          "codec_name" => "subrip",
+          "codec_tag" => "0x0000",
+          "codec_tag_string" => "[0][0][0][0]",
+          "codec_time_base" => "0/1",
+          "codec_type" => "subtitle",
+          "disposition" => %{
+            "attached_pic" => 0,
+            "clean_effects" => 0,
+            "comment" => 0,
+            "default" => 0,
+            "dub" => 0,
+            "forced" => 0,
+            "hearing_impaired" => 0,
+            "karaoke" => 0,
+            "lyrics" => 0,
+            "original" => 0,
+            "timed_thumbnails" => 0,
+            "visual_impaired" => 0
+          },
+          "duration" => "12566.816000",
+          "duration_ts" => 12566816,
+          "index" => 4,
+          "r_frame_rate" => "0/0",
+          "start_pts" => 0,
+          "start_time" => "0.000000",
+          "tags" => %{
+            "BPS-eng" => "96",
+            "DURATION-eng" => "03:28:05.333000000",
+            "NUMBER_OF_BYTES-eng" => "150465",
+            "NUMBER_OF_FRAMES-eng" => "2973",
+            "_STATISTICS_TAGS-eng" => "BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES",
+            "_STATISTICS_WRITING_APP-eng" => "mkvmerge v40.0.0 ('Old Town Road + Pony') 64-bit",
+            "_STATISTICS_WRITING_DATE_UTC-eng" => "2019-11-27 08:22:44",
+            "language" => "rus",
+            "title" => "Full"
+          },
+          "time_base" => "1/1000"
+        },
+        %{
+          "avg_frame_rate" => "0/0",
+          "codec_long_name" => "SubRip subtitle",
+          "codec_name" => "subrip",
+          "codec_tag" => "0x0000",
+          "codec_tag_string" => "[0][0][0][0]",
+          "codec_time_base" => "0/1",
+          "codec_type" => "subtitle",
+          "disposition" => %{
+            "attached_pic" => 0,
+            "clean_effects" => 0,
+            "comment" => 0,
+            "default" => 0,
+            "dub" => 0,
+            "forced" => 0,
+            "hearing_impaired" => 0,
+            "karaoke" => 0,
+            "lyrics" => 0,
+            "original" => 0,
+            "timed_thumbnails" => 0,
+            "visual_impaired" => 0
+          },
+          "duration" => "12566.816000",
+          "duration_ts" => 12566816,
+          "index" => 5,
+          "r_frame_rate" => "0/0",
+          "start_pts" => 0,
+          "start_time" => "0.000000",
+          "tags" => %{
+            "BPS-eng" => "47",
+            "DURATION-eng" => "00:00:57.292000000",
+            "NUMBER_OF_BYTES-eng" => "343",
+            "NUMBER_OF_FRAMES-eng" => "17",
+            "_STATISTICS_TAGS-eng" => "BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES",
+            "_STATISTICS_WRITING_APP-eng" => "mkvmerge v40.0.0 ('Old Town Road + Pony') 64-bit",
+            "_STATISTICS_WRITING_DATE_UTC-eng" => "2019-11-27 08:22:44",
+            "language" => "eng",
+            "title" => "Forced"
+          },
+          "time_base" => "1/1000"
+        },
+        %{
+          "avg_frame_rate" => "0/0",
+          "codec_long_name" => "SubRip subtitle",
+          "codec_name" => "subrip",
+          "codec_tag" => "0x0000",
+          "codec_tag_string" => "[0][0][0][0]",
+          "codec_time_base" => "0/1",
+          "codec_type" => "subtitle",
+          "disposition" => %{
+            "attached_pic" => 0,
+            "clean_effects" => 0,
+            "comment" => 0,
+            "default" => 0,
+            "dub" => 0,
+            "forced" => 0,
+            "hearing_impaired" => 0,
+            "karaoke" => 0,
+            "lyrics" => 0,
+            "original" => 0,
+            "timed_thumbnails" => 0,
+            "visual_impaired" => 0
+          },
+          "duration" => "12566.816000",
+          "duration_ts" => 12566816,
+          "index" => 6,
+          "r_frame_rate" => "0/0",
+          "start_pts" => 0,
+          "start_time" => "0.000000",
+          "tags" => %{
+            "BPS-eng" => "68",
+            "DURATION-eng" => "03:16:42.875000000",
+            "NUMBER_OF_BYTES-eng" => "100924",
+            "NUMBER_OF_FRAMES-eng" => "2927",
+            "_STATISTICS_TAGS-eng" => "BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES",
+            "_STATISTICS_WRITING_APP-eng" => "mkvmerge v40.0.0 ('Old Town Road + Pony') 64-bit",
+            "_STATISTICS_WRITING_DATE_UTC-eng" => "2019-11-27 08:22:44",
+            "language" => "eng",
+            "title" => "Full"
+          },
+          "time_base" => "1/1000"
+        },
+        %{
+          "avg_frame_rate" => "0/0",
+          "codec_long_name" => "SubRip subtitle",
+          "codec_name" => "subrip",
+          "codec_tag" => "0x0000",
+          "codec_tag_string" => "[0][0][0][0]",
+          "codec_time_base" => "0/1",
+          "codec_type" => "subtitle",
+          "disposition" => %{
+            "attached_pic" => 0,
+            "clean_effects" => 0,
+            "comment" => 0,
+            "default" => 0,
+            "dub" => 0,
+            "forced" => 0,
+            "hearing_impaired" => 0,
+            "karaoke" => 0,
+            "lyrics" => 0,
+            "original" => 0,
+            "timed_thumbnails" => 0,
+            "visual_impaired" => 0
+          },
+          "duration" => "12566.816000",
+          "duration_ts" => 12566816,
+          "index" => 7,
+          "r_frame_rate" => "0/0",
+          "start_pts" => 0,
+          "start_time" => "0.000000",
+          "tags" => %{
+            "BPS-eng" => "87",
+            "DURATION-eng" => "03:20:51.083000000",
+            "NUMBER_OF_BYTES-eng" => "131920",
+            "NUMBER_OF_FRAMES-eng" => "3813",
+            "_STATISTICS_TAGS-eng" => "BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES",
+            "_STATISTICS_WRITING_APP-eng" => "mkvmerge v40.0.0 ('Old Town Road + Pony') 64-bit",
+            "_STATISTICS_WRITING_DATE_UTC-eng" => "2019-11-27 08:22:44",
+            "language" => "eng",
+            "title" => "SDH"
+          },
+          "time_base" => "1/1000"
+        }
+      ]
+    result =
+      %{
+        audio: [
+          %{
+            channels: 6,
+            codec_name: "eac3",
+            forced: false,
+            index: 1,
+            language: "rus",
+            sample_rate: "48000",
+            title: "rus Dub"
+          },
+          %{
+            channels: 6,
+            codec_name: "eac3",
+            forced: false,
+            index: 2,
+            language: "eng",
+            sample_rate: "48000",
+            title: "eng Original"
+          }
+        ],
+        subtitle: [
+          %{
+            codec_name: "subrip",
+            forced: true,
+            index: 3,
+            language: "rus",
+            title: "rus Forced"
+          },
+          %{
+            codec_name: "subrip",
+            forced: false,
+            index: 4,
+            language: "rus",
+            title: "rus Full"
+          },
+          %{
+            codec_name: "subrip",
+            forced: true,
+            index: 5,
+            language: "eng",
+            title: "eng Forced"
+          },
+          %{
+            codec_name: "subrip",
+            forced: false,
+            index: 6,
+            language: "eng",
+            title: "eng Full"
+          },
+          %{
+            codec_name: "subrip",
+            forced: false,
+            index: 7,
+            language: "eng",
+            title: "eng SDH"
+          }
+        ],
+        video: [
+          %{
+            avg_frame_rate: "24/1",
+            codec_name: "h264",
+            display_aspect_ratio: "16:9",
+            height: 1080,
+            index: 0,
+            pix_fmt: "yuv420p",
+            width: 1920
+          }
+        ]
+      }
+    assert HMSS.MediaContainer.FFprobeExtractor.extract(input) == result
+  end
+end
