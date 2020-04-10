@@ -1,6 +1,6 @@
 defmodule HMSS.MediaContainer.FFprobeExtractor do
   def extract(raw_ffmpeg_data) do
-    %{
+    %HMSS.Types.MediaContainer.Info{
       video: extract_and_prettify_data(video_streams(raw_ffmpeg_data), &short_video_data/1),
       audio: extract_and_prettify_data(audio_streams(raw_ffmpeg_data), &short_audio_data/1),
       subtitle: extract_and_prettify_data(subtitle_streams(raw_ffmpeg_data), &short_subtitle_data/1)

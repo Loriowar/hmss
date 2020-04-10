@@ -20,16 +20,18 @@ defmodule HMSS.MediaContainer.Info do
   defp set_ffmpeg_stream_index(short_data) do
     [:video, :audio, :subtitle]
     |> Enum.reduce(
-         %{},
+         %HMSS.Types.MediaContainer.Info{},
          fn(media_type, result) ->
            min_index =
-             short_data[media_type]
+             short_data
+             |> Map.get(media_type)
              |> Enum.map(fn(el) -> el[:index] end)
              |> Enum.reject(&is_nil/1)
              |> Enum.min
 
            new_media_type =
-             short_data[media_type]
+             short_data
+             |> Map.get(media_type)
              |> Enum.map(
                   fn(el)->
                     Map.merge(
