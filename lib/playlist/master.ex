@@ -20,6 +20,9 @@ defmodule HMSS.Paylist.Master do
             segment_basename: "segment_",
             segment_number_length: 4,
             segment_extension: ".ts"
+          },
+          meta: %{
+            ffmpeg_index: video_info.ffmpeg_index
           }
         }
       end)
@@ -33,6 +36,7 @@ defmodule HMSS.Paylist.Master do
             language: info.language,
             name: "#{info.title} (#{audio_bitrate_format(quality)})",
             bandwidth: quality.bitrate,
+            channels: quality.channels,
             playlist_path: audio_playlist_path_for(quality, info),
             playlist_name: "playlist.m3u8",
             details: %HLS.Plg.Types.Common{
@@ -43,6 +47,10 @@ defmodule HMSS.Paylist.Master do
               segment_basename: "segment_",
               segment_number_length: 4,
               segment_extension: ".aac"
+            },
+            meta: %{
+              ffmpeg_index: info.ffmpeg_index,
+              sample_rate: info.sample_rate
             }
           }
         end)
@@ -67,6 +75,9 @@ defmodule HMSS.Paylist.Master do
                segment_basename: "segment_",
                segment_number_length: 4,
                segment_extension: ".vtt"
+             },
+             meta: %{
+               ffmpeg_index: info.ffmpeg_index
              }
            }
           end)

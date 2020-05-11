@@ -21,9 +21,10 @@ defmodule HMSS.MediaContainer.FFprobeExtractor do
 
   defp short_audio_data(raw_data) do
     raw_data
-    |> Map.take(~w(codec_name channels sample_rate index))
+    |> Map.take(~w(codec_name channels index))
     |> Map.merge(
          %{
+           sample_rate: get_sample_rate(raw_data),
            forced: get_forced(raw_data),
            language: get_language(raw_data),
            title: get_full_title(raw_data)
@@ -61,6 +62,15 @@ defmodule HMSS.MediaContainer.FFprobeExtractor do
 
   defp get_forced(raw_data) do
     get_in(raw_data, ~w(disposition forced)) == 1 || get_title(raw_data) |> String.downcase == "forced"
+  end
+
+  defp get_sample_rate(raw_data) do
+    raw_rate = get_in(raw_data, ~w(sample_rate)) |> to_string
+    case raw_rate |> Integer.parse do
+      {result, _} -> result
+      :error -> nil
+      _ -> nil
+    end
   end
 
   defp extract_and_prettify_data(list, func) do
