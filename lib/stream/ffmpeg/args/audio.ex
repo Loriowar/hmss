@@ -9,10 +9,11 @@ defmodule HMSS.Stream.FFmpeg.Args.Audio do
       |> add_input_file(input_file_path)
       |> add_output_file(output_segments_path(output_stream_path, stream_info.details))
       |> add_stream_specifier(stream_type: :audio)
-      |> add_stream_option(option_b(to_audio_bitrate_format(stream_info)))
+      |> add_stream_option(option_b(to_bitrate_format(stream_info)))
       |> add_stream_option(option_c(to_extension(stream_info.details)))
       |> add_file_option(option_ac(to_channels(stream_info)))
       |> add_file_option(option_vn())
+      |> add_file_option(option_sn())
       |> add_file_option(option_map(to_audio_map(stream_info.meta.ffmpeg_index)))
       |> add_file_option(option_f("segment"))
       |> add_file_option(option_segment_time(to_target_duration(stream_info.details)))
@@ -44,12 +45,12 @@ defmodule HMSS.Stream.FFmpeg.Args.Audio do
   # http://facta.junis.ni.ac.rs/eae/fu2k93/9murugan.pdf page 374 formula 2
   # https://stackoverflow.com/questions/42609700/converting-aac-stream-to-dash-mp4-with-high-fragment-length-precision
   @spec adjusted_duration(Number.t, nil) :: Float.t
-  def adjusted_duration(target_duration, nil) do
+  defp adjusted_duration(target_duration, nil) do
     target_duration
   end
 
   @spec adjusted_duration(Number.t, Integer.t) :: Float.t
-  def adjusted_duration(target_duration, sample_rate) do
+  defp adjusted_duration(target_duration, sample_rate) do
     time_quant = 1024 / sample_rate
     frames_amount = target_duration / time_quant
     # kind of hack due to uneven distribution of frames in case of multiple audio parts in the result
@@ -64,8 +65,8 @@ defmodule HMSS.Stream.FFmpeg.Args.Audio do
 
   # TODO: should be moved to a separate module due to usage in audio and video streams
   @spec segment_start_number(Number.t, Number.t) :: Integer.t
-  def segment_start_number(nil, _target_duration = 10), do: 0
-  def segment_start_number(offset, target_duration = 10) do
+  defp segment_start_number(nil, _target_duration = 10), do: 0
+  defp segment_start_number(offset, target_duration = 10) do
     offset / target_duration |> trunc
   end
 
@@ -85,7 +86,7 @@ defmodule HMSS.Stream.FFmpeg.Args.Audio do
     "0:a:#{stream_number |> trunc}"
   end
 
-  defp to_audio_bitrate_format(data) do
+  defp to_bitrate_format(data) do
     "#{data.bandwidth/1000 |> trunc}k"
   end
 

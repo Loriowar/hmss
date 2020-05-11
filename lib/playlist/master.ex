@@ -10,6 +10,7 @@ defmodule HMSS.Paylist.Master do
         %HLS.Plg.Types.MasterRow{
           bandwidth: el.bitrate,
           resolution: resolution_for(el),
+          framerate: 24,
           playlist_path: video_playlist_path_for(el, video_info),
           playlist_name: "playlist.m3u8",
           details: %HLS.Plg.Types.Common{
