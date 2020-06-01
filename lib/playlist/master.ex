@@ -71,6 +71,7 @@ defmodule HMSS.Paylist.Master do
              playlist_name: "playlist.m3u8",
              details: %HLS.Plg.Types.Common{
                duration: media_info.duration,
+               target_duration: (media_info.duration |> trunc) + 1,
                sequence_number: 0,
                segment_path: "",
                segment_basename: "segment_",

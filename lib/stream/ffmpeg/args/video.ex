@@ -18,6 +18,8 @@ defmodule HMSS.Stream.FFmpeg.Args.Video do
       |> add_file_option(option_force_key_frames("expr:gte(t,n_forced*#{to_target_duration(stream_info.details)})"))
       |> add_file_option(option_sc_threshold(0))
       |> add_file_option(option_r(stream_info.framerate))
+      |> add_file_option(option_muxdelay(0)) # fix for first segment pts_time
+      |> add_file_option(option_muxpreload(0)) # fix for first segment pts_time
       |> add_file_option(option_f("hls"))
       |> add_file_option(option_hls_time(to_target_duration(stream_info.details)))
       |> add_file_option(option_hls_segment_filename(output_segments_path(output_stream_path, stream_info.details)))

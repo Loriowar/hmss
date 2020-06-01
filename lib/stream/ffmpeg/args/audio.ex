@@ -49,6 +49,8 @@ defmodule HMSS.Stream.FFmpeg.Args.Audio do
     target_duration
   end
 
+  # TODO: current logic leads to an audio artefact on the junction of aac files from different ffmpeg runs;
+  #       so, needs to implement clever time adjustment according to current timestamp and rounding basing of frames amount
   @spec adjusted_duration(Number.t, Integer.t) :: Float.t
   defp adjusted_duration(target_duration, sample_rate) do
     time_quant = 1024 / sample_rate
